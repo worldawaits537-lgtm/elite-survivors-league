@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Survivors League - Free Fire Tournament</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FF4500 0%, #FF6B00 50%, #FF8C00 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 69, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.3) 0%, transparent 50%);
+            animation: pulse 10s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
+            border-radius: 25px 25px 0 0;
+            padding: 30px;
+            text-align: center;
+            border: 3px solid #FF6B00;
+            border-bottom: none;
+            box-shadow: 0 -5px 30px rgba(255, 107, 0, 0.5);
+        }
+
+        .logo h1 {
+            color: #FF6B00;
+            font-size: 32px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 
+                0 0 10px rgba(255, 107, 0, 0.8),
+                0 0 20px rgba(255, 107, 0, 0.6),
+                0 0 30px rgba(255, 107, 0, 0.4);
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 10px rgba(255, 107, 0, 0.8),
+                    0 0 20px rgba(255, 107, 0, 0.6);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 20px rgba(255, 107, 0, 1),
+                    0 0 30px rgba(255, 107, 0, 0.8);
+            }
+        }
+
+        .subtitle {
+            color: #FFD700;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .game-title {
+            display: inline-block;
+            background: linear-gradient(90deg, #FF4500, #FF6B00, #FF8C00);
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.6);
+            margin-bottom: 10px;
+        }
+
+        .tournament-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .tournament-info p {
+            color: #FFD700;
+            font-size: 14px;
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        .form-container {
+            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 100%);
+            border-radius: 0 0 25px 25px;
+            padding: 35px;
+            border: 3px solid #FF6B00;
+            border-top: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+            border-left: 4px solid #FFD700;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .info-box p {
+            color: #d35400;
+            font-size: 13px;
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon {
+            font-size: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #FF6B00;
+            box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .required {
+            color: #FF4500;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #FF4500 0%, #FF6B00 50%, #FF8C00 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(255, 69, 0, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 69, 0, 0.6);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message, .error-message {
+            display: none;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+            animation: slideIn 0.5s ease;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .admin-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .admin-link a {
+            color: #FF6B00;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 26px;
+            }
+            .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <h1>🔥 ELITE SURVIVORS LEAGUE 🔥</h1>
+                <div class="subtitle">Official Tournament Registration</div>
+                <div class="game-title">⚡ FREE FIRE TOURNAMENT ⚡</div>
+            </div>
+            
+            <div class="tournament-info">
+                <p>🏆 Prize Pool Coming Soon</p>
+                <p>📅 Tournament Date: TBA</p>
+                <p>👥 Limited Slots Available</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="info-box">
+                <p><strong>⚠️ গুরুত্বপূর্ণ:</strong></p>
+                <p>✅ সঠিক তথ্য দিন - ভুল তথ্যে রেজিস্ট্রেশন বাতিল হবে</p>
+                <p>✅ WhatsApp নম্বর অবশ্যই Active থাকতে হবে</p>
+            </div>
+
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label>
+                        <span class="icon">👤</span>
+                        আপনার নাম <span class="required">*</span>
+                    </label>
+                    <input type="text" id="name" required placeholder="আপনার পূর্ণ নাম">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <span class="icon">🎮</span>
+                        Free Fire ইন-গেম নাম (IGN) <span class="required">*</span>
+                    </label>
+                    <input type="text" id="ign" required placeholder="আপনার Free Fire IGN">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <span class="icon">🆔</span>
+                        Free Fire UID <span class="required">*</span>
+                    </label>
+                    <input type="text" id="uid" required placeholder="আপনার Free Fire UID" pattern="[0-9]+">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <span class="icon">💬</span>
+                        WhatsApp নম্বর <span class="required">*</span>
+                    </label>
+                    <input type="tel" id="whatsapp" required placeholder="০১XXXXXXXXX" pattern="[0-9]{11}">
+                    <small style="color: #999; font-size: 12px; margin-top: 5px; display: block;">
+                        ⚠️ অবশ্যই WhatsApp এ Active নম্বর দিন
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <span class="icon">📧</span>
+                        ইমেইল (ঐচ্ছিক)
+                    </label>
+                    <input type="email" id="email" placeholder="your@email.com">
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    🚀 রেজিস্ট্রেশন সম্পন্ন করুন
+                </button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                ✅ রেজিস্ট্রেশন সফল হয়েছে!<br>
+                শীঘ্রই WhatsApp এ যোগাযোগ করা হবে।
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                ❌ কিছু ভুল হয়েছে! আবার চেষ্টা করুন।
+            </div>
+
+            <div class="admin-link">
+                <a href="admin.html">🔐 এডমিন প্যানেল</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWbirx7Y6EEjH6lW0Bl4okEeInblVTdDE",
+            authDomain: "elite-survivors-league-465a9.firebaseapp.com",
+            databaseURL: "https://elite-survivors-league-465a9-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "elite-survivors-league-465a9",
+            storageBucket: "elite-survivors-league-465a9.firebasestorage.app",
+            messagingSenderId: "55509684169",
+            appId: "1:55509684169:web:9edc04d6bc29be5750a218"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        document.getElementById('whatsapp').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            e.target.value = value;
+        });
+
+        document.getElementById('uid').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'জমা দেওয়া হচ্ছে...';
+
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                ign: document.getElementById('ign').value.trim(),
+                uid: document.getElementById('uid').value.trim(),
+                whatsapp: document.getElementById('whatsapp').value.trim(),
+                email: document.getElementById('email').value.trim() || 'N/A',
+                status: 'pending',
+                timestamp: new Date().toISOString(),
+                submittedAt: new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' }),
+                game: 'Free Fire'
+            };
+
+            try {
+                const registrationsRef = ref(database, 'registrations');
+                const newRegistrationRef = push(registrationsRef);
+                await set(newRegistrationRef, formData);
+
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                document.getElementById('registrationForm').reset();
+
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 7000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                errorMessage.textContent = '❌ ' + error.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 রেজিস্ট্রেশন সম্পন্ন করুন';
+            }
+        });
+    </script>
+</body>
+</html>

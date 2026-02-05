@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Survivors League - Admin Panel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            color: #FF6B00;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .login-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+            width: auto;
+            margin: 0 5px;
+        }
+
+        .btn-approve {
+            background: #4caf50;
+        }
+
+        .btn-reject {
+            background: #f44336;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #FF4500 0%, #FF6B00 100%);
+            color: white;
+        }
+
+        .registration-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .registration-card h3 {
+            color: #FF6B00;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #FF6B00;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .logout-btn {
+            background: #f44336;
+            margin-top: 20px;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            background: white;
+            border-radius: 15px;
+        }
+
+        .whatsapp-link {
+            color: #25D366;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .whatsapp-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn-small {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div class="container hidden" id="loginSection">
+        <div class="login-section">
+            <h2>🔐 এডমিন লগইন</h2>
+            <div class="form-group">
+                <label>ইমেইল</label>
+                <input type="email" id="loginEmail" placeholder="admin@example.com">
+            </div>
+            <div class="form-group">
+                <label>পাসওয়ার্ড</label>
+                <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড">
+            </div>
+            <button class="btn" id="loginBtn">লগইন করুন</button>
+            <div style="margin-top: 20px; text-align: center; color: white;">
+                <a href="index.html" style="color: white;">← রেজিস্ট্রেশন ফর্মে ফিরে যান</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="container hidden" id="adminDashboard">
+        <div class="header">
+            <h1>🔥 Elite Survivors League - Admin Panel</h1>
+            <p>Free Fire Tournament Management</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCount">0</div>
+                <div class="stat-label">মোট আবেদন</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="approvedCount">0</div>
+                <div class="stat-label">অনুমোদিত</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingCount">0</div>
+                <div class="stat-label">অপেক্ষমাণ</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="filterRegistrations('all')">সকল</div>
+            <div class="tab" onclick="filterRegistrations('pending')">অপেক্ষমাণ</div>
+            <div class="tab" onclick="filterRegistrations('approved')">অনুমোদিত</div>
+            <div class="tab" onclick="filterRegistrations('rejected')">বাতিল</div>
+        </div>
+
+        <div id="registrationsList"></div>
+
+        <button class="btn logout-btn" onclick="logout()">লগআউট করুন</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWbirx7Y6EEjH6lW0Bl4okEeInblVTdDE",
+            authDomain: "elite-survivors-league-465a9.firebaseapp.com",
+            databaseURL: "https://elite-survivors-league-465a9-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "elite-survivors-league-465a9",
+            storageBucket: "elite-survivors-league-465a9.firebasestorage.app",
+            messagingSenderId: "55509684169",
+            appId: "1:55509684169:web:9edc04d6bc29be5750a218"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        let allRegistrations = {};
+        let currentFilter = 'all';
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('adminDashboard').classList.remove('hidden');
+                loadRegistrations();
+            } else {
+                document.getElementById('loginSection').classList.remove('hidden');
+                document.getElementById('adminDashboard').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                alert('লগইন ব্যর্থ: ' + error.message);
+            }
+        });
+
+        function loadRegistrations() {
+            const registrationsRef = ref(database, 'registrations');
+            onValue(registrationsRef, (snapshot) => {
+                allRegistrations = snapshot.val() || {};
+                updateStats();
+                displayRegistrations();
+            });
+        }
+
+        function updateStats() {
+            const registrations = Object.values(allRegistrations);
+            const total = registrations.length;
+            const approved = registrations.filter(r => r.status === 'approved').length;
+            const pending = registrations.filter(r => r.status === 'pending').length;
+
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('approvedCount').textContent = approved;
+            document.getElementById('pendingCount').textContent = pending;
+        }
+
+        function displayRegistrations() {
+            const container = document.getElementById('registrationsList');
+            const registrations = Object.entries(allRegistrations);
+
+            let filtered = registrations;
+            if (currentFilter !== 'all') {
+                filtered = registrations.filter(([id, data]) => data.status === currentFilter);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="no-data">কোনো আবেদন পাওয়া যায়নি</div>';
+                return;
+            }
+
+            filtered.sort((a, b) => new Date(b[1].timestamp) - new Date(a[1].timestamp));
+
+            container.innerHTML = filtered.map(([id, data]) => `
+                <div class="registration-card">
+                    <h3>${data.name}</h3>
+                    <div class="info-row">
+                        <span class="info-label">স্ট্যাটাস:</span>
+                        <span class="status-badge status-${data.status}">
+                            ${data.status === 'pending' ? 'অপেক্ষমাণ' : 
+                              data.status === 'approved' ? 'অনুমোদিত' : 'বাতিল'}
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">🎮 IGN:</span>
+                        <span class="info-value">${data.ign}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">🆔 UID:</span>
+                        <span class="info-value">${data.uid}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">💬 WhatsApp:</span>
+                        <span class="info-value">
+                            <a href="https://wa.me/88${data.whatsapp}" target="_blank" class="whatsapp-link">
+                                ${data.whatsapp}
+                            </a>
+                        </span>
+                    </div>
+                    ${data.email && data.email !== 'N/A' ? `
+                    <div class="info-row">
+                        <span class="info-label">📧 ইমেইল:</span>
+                        <span class="info-value">${data.email}</span>
+                    </div>
+                    ` : ''}
+                    <div class="info-row">
+                        <span class="info-label">⏰ জমা দেওয়ার সময়:</span>
+                        <span class="info-value">${data.submittedAt}</span>
+                    </div>
+                    ${data.status === 'pending' ? `
+                    <div class="actions">
+                        <button class="btn btn-small btn-approve" onclick="updateStatus('${id}', 'approved')">
+                            ✅ অনুমোদন করুন
+                        </button>
+                        <button class="btn btn-small btn-reject" onclick="updateStatus('${id}', 'rejected')">
+                            ❌ বাতিল করুন
+                        </button>
+                    </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        window.updateStatus = async (id, status) => {
+            try {
+                await update(ref(database, `registrations/${id}`), {
+                    status: status,
+                    updatedAt: new Date().toISOString()
+                });
+                alert(status === 'approved' ? '✅ অনুমোদন সফল হয়েছে!' : '❌ আবেদন বাতিল করা হয়েছে!');
+            } catch (error) {
+                alert('ত্রুটি: ' + error.message);
+            }
+        };
+
+        window.filterRegistrations = (filter) => {
+            currentFilter = filter;
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            displayRegistrations();
+        };
+
+        window.logout = async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                alert('লগআউট ব্যর্থ: ' + error.message);
+            }
+        };
+    </script>
+</body>
+</html>
